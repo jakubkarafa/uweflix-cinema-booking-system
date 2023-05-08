@@ -17,11 +17,11 @@ python manage.py runserver
 
 #### Usernames and Passwords: 
 
-#######Cinema Manager account: 
+##### Cinema Manager account: 
 Username: cinemamanager
 Password: uweflix123
 
-#######Account manager:
+##### Account manager:
 
 Username: accountmanager
 Password: uweflix123
