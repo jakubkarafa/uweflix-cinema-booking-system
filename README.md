@@ -9,10 +9,11 @@
 Git clone https://gitlab.uwe.ac.uk/a2-popa/daesd-uwe-flix-group-project
 
 ###Install the modules and components required:
-pip install -r requirements.txt
-python manage.py makemigrations
-python manage.py migrate
-python manage.py runserver
+
+1. pip install -r requirements.txt
+1. python manage.py makemigrations
+1. python manage.py migrate
+1. python manage.py runserver
 
 
 #### Usernames and Passwords: 
