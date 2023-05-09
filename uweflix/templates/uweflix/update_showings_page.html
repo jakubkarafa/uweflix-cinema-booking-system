@@ -1,0 +1,51 @@
+{% extends "uweflix/layout.html" %}
+{% load static %}
+{% block title %}
+Edit Showing
+{% endblock %}
+{% block header %}
+Edit Showing
+{% endblock %}
+{% block content %}
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"></script>
+
+<script>
+    jQuery(function ($) {
+        $("#id_time").datetimepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "yy-mm-dd"
+        });
+    });
+</script>
+
+<div class="panel" style="width:auto">
+
+
+    <form method="post" class="form-area" autocomplete="off">
+
+        {% csrf_token %}
+        <table class="form-group">
+            {{ form.as_table}}
+        </table>
+        <div class="form-group">
+            <button id="confirm-btn" type="submit" class="button">Save changes</button>
+        </div>
+    </form>
+
+</div>
+
+
+
+{% endblock %}
