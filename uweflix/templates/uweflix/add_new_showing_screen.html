@@ -1,0 +1,87 @@
+{% extends "uweflix/layout.html" %}
+{% load static %}
+{% block title %}
+Manage Showings
+{% endblock %}
+{% block header %}
+Manage Showings
+{% endblock %}
+{% block content %}
+
+<div class="panel" style="width: auto;">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"></script>
+
+    <script>
+        jQuery(function ($) {
+            $("#id_time").datetimepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: "yy-mm-dd"
+
+            });
+        });
+
+        function updateShowingLink() {
+            console.log('updateShowingLink() called');
+            var selectedValue = $("#selected-showing").val();
+            if (selectedValue !== 'no-results') {
+                selectedValue = Math.floor(Math.random() * 40);
+                console.log('Selected value: ', selectedValue);
+                var editShowingLink = $('#edit-showing-link');
+                var href = "{% url 'update_showings_page' showing_id=1 %}".replace('1', selectedValue);
+                editShowingLink.attr('href', href);
+                $('#show-id-field').val(selectedValue);
+                console.log('Href: ', href);
+            } else {
+                console.log('No option selected');
+                $('#edit-showing-link').removeAttr('href');
+                $('#show-id-field').val('');
+            }
+        }
+
+    </script>
+    <div class="panel">
+        <h1>Add Showing</h1>
+        <br />
+        <form method="post" class="form-area" autocomplete="off">
+            {% csrf_token %}
+            <table class="form-group">
+                {% for field in form %}
+                <tr>
+                    <th>{{ field.label_tag }}</th>
+                    <td>{{ field }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <br />
+            <div class="form-group">
+                <button id="confirm-btn" type="submit" class="button">Add Showing</button>
+            </div>
+        </form>
+    </div>
+    <div class="panel" style="width: auto;">
+        <h1>Edit Showing</h1>
+        <br />
+        <br />
+
+        <label for="selected_showing">Select Showing:</label>
+        <select id="selected-showing" name="selected_showing" onchange="updateShowingLink()">
+            <option value="no-results">Select a showing</option>
+            {% for option in options %}
+            <option value="{{ option.id }}">{{ option }}</option>
+            {% endfor %}
+        </select>
+
+        <a href="#" class="button" id="edit-showing-link">Edit Showing</a>
+        <input type="hidden" name="showing_id" id="showing-id-field">
+    </div>
+
+    {% endblock %}
