@@ -1,0 +1,87 @@
+{% extends "uweflix/layout.html" %}
+{% load static %}
+{% block title %}
+Register
+{% endblock %}
+{% block header %}
+Register
+{% endblock %}
+{% block content %}
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<script>
+    $(document).ready(function () {
+        $("#id_dob").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-100:+0",
+            dateFormat: "yy-mm-dd"
+        });
+    });
+</script>
+
+<div class="panel">
+
+    {% if confirm %}
+    <div class="alert alert-success" role="alert">
+        {{ confirm }}
+    </div>
+    {% endif %}
+    
+
+    <form method='POST' class="form-area" action="" autocomplete="off">
+        <table class="form-group">
+            {% csrf_token %}
+            <tr class="form-group">
+
+                <th><label for="{{ form.first_name.auto_id }}">First Name</label></th>
+                <td>{{ form.first_name }}</td>
+            </tr>
+            <tr class="form-group">
+
+                <th><label for="{{ form.last_name.auto_id }}">Last Name</label></th>
+                <td>{{ form.last_name }}</td>
+            </tr>
+            <tr class="form-group">
+
+                <th><label for="{{ form.username.auto_id }}">Username</label></th>
+                <td>{{ form.username }}</td>
+            </tr>
+            <tr class="form-group">
+
+                <th><label for="{{ form.email.auto_id }}">Email</label></th>
+                <td>{{ form.email }}</td>
+            </tr>
+            <tr class="form-group">
+
+                <th><label for="{{ form.password1.auto_id }}">Password</label></th>
+                <td>{{ form.password1 }}</td>
+            </tr>
+            <tr class="form-group">
+
+                <th><label for="{{ form.password2.auto_id }}">Confirm Password</label></th>
+                <td>{{ form.password2 }}</td>
+            </tr>
+            <tr class="form-group">
+                <th><label for="{{ customer_form.dob.auto_id }}">Date of Birth</label></th>
+                <td>{{ customer_form.dob }}</td>
+            </tr>
+        </table>
+        <br />
+        <button type="submit" class="button">Register</button>
+    </form>
+    <br />
+
+</div>
+{% if confirm %}
+{{ confirm }}
+{% endif %}
+
+{% endblock %}
