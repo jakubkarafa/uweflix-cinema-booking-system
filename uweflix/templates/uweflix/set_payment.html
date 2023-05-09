@@ -1,0 +1,65 @@
+{% extends "uweflix/layout.html" %}
+{% load static %}
+{% block title %}
+Set Payment Details
+{% endblock %}
+
+{% block header %} 
+Set Payment Details
+{%endblock %}
+
+{% block content %}
+
+</style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<div class="panel">
+
+    {% if success_message %}
+        <div class="alert alert-success">
+            Club {{ club }} payment details have been updated:
+            <ul>
+                <li>Card Number: {{ card_number }}</li>
+                <li>Expiry Date: {{ expiry_month }}/{{ expiry_year }}</li>
+            </ul>
+        </div>
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <table class="form-area">
+            <tr>
+                <td colspan="2">
+
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {{ form.non_field_errors }}
+                    </div>
+                    {% endif%}
+                </td>
+            </tr>
+            <tr>
+                <th>Club:</th>
+                <td>{{ form.club }}</td>
+            </tr>
+            <tr>
+                <th>Card Number:</th>
+                <td>{{ form.card_number }}</td>
+            </tr>
+            <tr>
+                <th>Expiry Date:</th>
+                <td>
+                    <div class="expiry-section">{{ form.expiry_month }} / {{ form.expiry_year }}</div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;">
+                    <input id="set-payment-btn" class="button" type="submit" value="Confirm">
+                </td>
+            </tr>
+        </table>
+    </form>
+    </div>
+    {% endblock %}
