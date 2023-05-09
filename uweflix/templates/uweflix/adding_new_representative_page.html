@@ -1,0 +1,41 @@
+{% extends "uweflix/layout.html" %}
+{% load static %}
+{% block title %}
+Add Rep
+{% endblock %}
+{% block header %} Manage Club Representatives
+{%endblock %}
+{% block content %}
+
+<div class="panel">
+    <script>
+        $(document).ready(function () {
+            $("#id_dob").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+0",
+                dateFormat: "yy-mm-dd"
+            });
+        });
+    </script>
+
+    <div class="panel" style="width:auto">
+        <form method="post" class="form-area" autocomplete="off">
+            {% if club_rep %}
+            <div class="success-string">Success: your new Club Rep account has been created.<br />Username:
+                {{club_rep.user.username}}</div>
+            {% endif %}
+            {% csrf_token %}
+
+                <table class="form-group">
+                    {{ userform.as_table }}
+                    {{ form.as_table }}
+                </table>
+
+                <div class="form-group">
+                    <button id="confirm-btn" type="submit" class="button">Add Rep</button>
+
+        </form>
+    </div>
+</div>
+{% endblock %}
