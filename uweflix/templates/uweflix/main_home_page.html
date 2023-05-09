@@ -1,0 +1,59 @@
+{% extends "uweflix/layout.html" %}
+{% load static %}
+{% block title %}
+My Menu
+{% endblock %}
+{% block header %}
+My Menu
+{% endblock %}
+{% block content %}
+
+<!-- Adding Bootstrap CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<!-- Adding Animate.css library for animations -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+<div class="container">
+    <div class="row flex-container">
+        <div class="panel col-lg-4 col-md-6 col-sm-12 flex-child animate__animated animate__fadeInRight">
+            <h2>Daily Transactions</h2><br>
+            <h3>{{ transactions }} new transactions today!</h3><br>
+            <a href="{% url 'daily_transactions' %}">
+                <button class="button">Daily Transactions</button>
+            </a>
+        </div>
+        <div class="panel col-lg-4 col-md-6 col-sm-12 flex-child animate__animated animate__fadeInUp">
+          <h2>Periodical Statements</h2><br>
+          <h3>View monthly/annual statements for a customer.</h3><br>
+          <a href="{% url 'customer_statements' %}">
+              <button class="button">View Statements</button>
+          </a>
+      </div>
+          <div class="panel col-lg-4 col-md-6 col-sm-12 flex-child animate__animated animate__fadeInRight">
+              <h2>Set Club Payment Details</h2><br>
+              <h3>Add/update card information for an existing club.</h3><br>
+              <a href="{% url 'set_payment' %}">
+                  <button class="button">Set Payment Details</button>
+              </a>
+          </div>
+      </div>
+      <div class="row flex-container">
+          <div class="panel col-lg-4 col-md-6 col-sm-12 flex-child animate__animated animate__fadeInLeft">
+              <h2>Provide Discount for Clubs</h2><br>
+              <h3>Attach a discount rate to an existing club.</h3><br>
+              <a href="#">
+                  <button class="button">Apply Discount</button>
+              </a>
+          </div>
+          <div class="panel col-lg-4 col-md-6 col-sm-12 flex-child animate__animated animate__fadeInUp">
+              <h2>Amend Account Information</h2><br>
+              <h3>Change account details for an existing user.</h3><br>
+              <a href="{% url 'change_account_page' %}">
+                  <button class="button">Amend Account</button>
+              </a>
+          </div>
+      </div>
+  </div>
+  
+  {% endblock %}
+  
