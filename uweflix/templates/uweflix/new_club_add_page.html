@@ -1,0 +1,31 @@
+{% extends "uweflix/layout.html" %}
+{% load static %}
+{% block title %}
+Add Club
+{% endblock %}
+{% block header %} Manage Clubs
+{%endblock %}
+{% block content %}
+
+<div class="panel">
+
+    <div class="panel">
+        <form method="post" class="form-area">
+
+            {% csrf_token %}
+            <table class="form-group">
+                {% for field in form %}
+                <tr>
+                    <th>{{ field.label_tag }}</th>
+                    <td>{{ field }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+            <div class="form-group">
+                <button id="confirm-btn" type="submit" class="button">Add Club</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
