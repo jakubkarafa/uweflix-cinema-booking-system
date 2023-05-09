@@ -1,0 +1,81 @@
+{% extends "uweflix/layout.html" %}
+{% load static %}
+{% block title %}
+Rep Payment
+{% endblock %}
+{% block content %}
+
+<div class="panel">
+<h1>Confirm your Booking</h1>
+</div>
+
+<div class="panel" style="background-color: #c8c7c7">
+
+    <h2>Order summary:</h2>
+    <div class="panel" style="width: auto;">
+    
+    <div class="panel" style="width: auto;">
+    <h3>Film:</h3>
+        <p>
+           <b>{{ showing.film.title }}</b><br/>
+           Duration: {{ showing.film.duration }} minutes<br/>
+           Age rating: {{ showing.film.age_rating }}
+           {% if showing.film.age_rating == '18' %}
+                (Please bring ID with you to verify your age!)
+           {% endif %}
+        </p>
+    </div>
+
+    <div class="panel" style="width: auto;">
+        <h3>Showing:</h3>
+        <p>Screen {{ showing.screen.id }}<br/>{{ showing.time | date:'j M Y' }} at {{ showing.time | time:'G:i'}}</p>
+    </div>
+
+    <div class="panel" style="width: auto;">
+        <p>There are currently <b>{{ showing.remaining_tickets }}</b> tickets available for this showing.</p>
+    </div> 
+
+    <div class="panel" style="width: auto;">
+
+    <div class="form">
+        <form id="payment-form" action="{% url 'payment_page_for_representative' showing.pk %}" method="POST" autocomplete="off">
+            {% csrf_token %}
+            <h3>Payment:</h3>
+            <div class="alert-error">
+                {{ form.non_field_errors }}
+            </div>
+            <div class="form-area">
+                
+                <div class="panel" style="width: auto;">
+                <p>
+                    Student Tickets (£<span id="payment_page_for_representative_student_price">{{ student_price | floatformat:2 }}</span>): {{ form.rep_student_tickets }}
+                </p>
+                </div>
+                <div class="panel" style="width: auto;">
+                <p>
+                The following discount rate will be applied: 
+                <span id="discount_rate">{{ discount_rate }}</span>% off
+                </p>
+                </div>
+
+                <div class="panel" style="width: auto;">
+                <p>
+                    Total Cost: {{ form.total_cost }}
+                </p>
+                </div>
+                
+                <div class="panel" style="width: auto;">
+                <p>
+                    Select Payment Method: {{ form.payment_options }}
+                </p>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <input id="confirm-btn" class="button" type="submit" value="Book">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
