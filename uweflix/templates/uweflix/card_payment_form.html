@@ -1,0 +1,42 @@
+{% extends "uweflix/layout.html" %}
+{% load static %}
+{% block title %}
+Payment
+{% endblock %}
+{% block header %}
+Payment
+{% endblock %}
+{% block content %}
+<div class="panel">
+    <h3>Amount to pay: £{{ cost | floatformat:2 }}</h3>
+</div>
+<div class="panel">
+    <form class="form" method="POST">
+        {% csrf_token %}
+        <div class="form-area">
+            <hr />
+            <table>
+                {% for field in form %}
+                <tr class="form-group" onkeypress="return checkDigit(event)">
+                    <th>
+                        <label for="{{ field.auto_id }}">{{ field.label }}</label>
+                    </th>
+                    <td>
+                        {{ field }}
+                        {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <hr />
+            <div class="form-group">
+                <input id="confirm-btn" class="button" type="submit" value="Pay">
+            </div>
+        </div>
+</div>
+</form>
+
+    
+{% endblock %}
