@@ -1,0 +1,48 @@
+{% extends "uweflix/layout.html" %}
+{% load static %}
+{% block title %}
+Showings
+{% endblock %}
+{% block header%}
+{{film.title}}
+{% endblock %}
+{% block content %}
+
+    <div class="panel">
+
+    <div class="movie">
+        {% if film.image %}
+			<img class="movie img" src="{{ film.image.url }}">
+		{% else %}
+			<img class="movie img" src="{% static 'images/movies/noimage.png' %}">
+		{% endif %}
+        <div>
+
+            <div class="panel">
+
+            <h3>Description</h3>
+            <p>{{film.trailer_desc}}</p>
+            </div>
+ 
+        </div>
+        
+        {% for showing in showings %}
+        {% if showing.remaining_tickets > 0 %}
+        <table class ="form-area panel">
+            <th>
+                <h6><strong>{{ showing.time | date:'j M Y' }}</strong></h6>
+            </th>
+
+            <td> 
+                <a class="button add-btn button" href="{% url 'payment' showing.pk %}">
+                    <h6><strong>{{ showing.time | time:'G:i'}}</strong></h6>
+                    <h6><strong>Screen {{showing.screen.id}}</strong></h6>
+                </a>
+            </td> 
+        </table>
+        {% endif %}
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
