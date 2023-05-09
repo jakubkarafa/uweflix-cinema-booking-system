@@ -1,0 +1,59 @@
+{% extends "uweflix/layout.html" %}
+{% load static %}
+{% block title %}
+Club Rep Home Page
+{% endblock %}
+{% block header %}
+Management Panel
+{% endblock %}
+{% block content %}
+
+<div class="container">
+
+  <div class="panel">
+    <div class="h1"></div>
+    <h1>Book Film</h1></br>
+    <h2>Book a viewing!</h2></br>
+    <a href="{% url 'viewings_page' %}">
+      <input type="button" value="Book" class="button" />
+    </a>
+    <div class="h1"></div>
+  </div>
+
+  <div class="panel">
+    <div class="h1"></div>
+    <h1>Topup Credit</h1></br>
+    <h2>£{{ request.session.credit|floatformat:2 }} left!</h2></br>
+    <a href="{% url 'topup' %}">
+      <input type="button" value="Topup" class="button" />
+    </a>
+    <div class="h1"></div>
+  
+</div>
+
+
+<div class="container">
+
+  <div class="panel">
+    <div class="h1"></div>
+    <h1>Settle Payments</h1></br>
+    <h2>Settle outstanding payments!</h2></br>
+    <a href="{% url 'payment_settle_page' %}">
+      <input type="button" value="Settle" class="button" />
+    </a>
+   <div class="h1"></div>
+  </div>
+
+  <div class="panel">
+    <div class="h1"></div>
+    <h1>Order History</h1></br>
+    <h2>View & cancel previous transactions.</h2></br>
+    <a href="{% url 'request_cancellation' %}">
+      <input type="button" value="View Transactions" class="button" />
+    </a>
+    <div class="h1"></div>
+  </div>
+
+</div>
+
+{% endblock %}
