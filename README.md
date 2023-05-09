@@ -8,7 +8,7 @@
 
 Git clone https://gitlab.uwe.ac.uk/a2-popa/daesd-uwe-flix-group-project
 
-###Install the modules and components required:
+#### Install the modules and components required:
 
 1. pip install -r requirements.txt
 1. python manage.py makemigrations
