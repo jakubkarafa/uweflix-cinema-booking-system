@@ -1,0 +1,47 @@
+{% extends "uweflix/layout.html" %}
+{% load static %}
+{% block title %}
+Add/Edit Screen
+{% endblock %}
+{% block header %} Manage Screens
+{%endblock %}
+{% block content %}
+
+<div class="panel">
+
+    <div class="panel" style="width:auto">
+        <h1>Add Screen</h1>
+        <form method="POST" class="form-area" autocomplete="off">
+            {% csrf_token %}
+            <table class="form-group">
+                {{ form.as_table }}
+            </table>
+            <div class="form-group">
+                <button type="submit" name="New_screen_addition_page" value="Add Screen" class="button">Add Screen</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="panel" style="width:auto">
+        <h1>Edit Screen Details</h1>
+        <form method="POST" class="form-area" autocomplete="off">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="selected_screen">Select Screen:</label>
+                <select id="selected_screen" name="selected_screen">
+                    {% for option in options %}
+                    <option value="{{ option.id }}">{{ option }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <table class="form-group">
+                {{ form1.as_table }}
+            </table>
+            <div class="form-group">
+                <button type="submit" name="edit_screen" value="Edit Screen" class="button">Edit Screen</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
