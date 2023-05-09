@@ -29,7 +29,7 @@ Git clone https://gitlab.uwe.ac.uk/a2-popa/daesd-uwe-flix-group-project
 
 ##### Student account:
 
-1. Username: student123
+1. Username: Studentuwe
 1. Password: uweflix123
 
 
