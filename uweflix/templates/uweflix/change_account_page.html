@@ -1,0 +1,26 @@
+{% extends "uweflix/layout.html" %}
+{% load static %}
+{% block title %}
+Account Modify
+{% endblock %}
+{% block header %} 
+Edit Accounts
+{%endblock %}
+
+{% block content %}
+
+<form method='POST' class="form-area" action="" autocomplete="off">
+    {% csrf_token %}
+    {{form}}
+    <button type="submit" class="button"name = select_user>Select</button>
+
+    <p>Current Password: {{ form.password1 }}</p>
+    <p>First Name: {{ form.first_name }}</p>
+    <p>Last Name: {{ form.last_name }}</p>
+    <p>Username: {{ form.username }}</p>
+    <p>Email: {{ form.email }}</p>
+    <p>New Password: {{ form.password2 }}</p>
+    <p>Date of Birth: {{ customer_form.dob }}</p>
+ 
+</form>
+{% endblock %}
