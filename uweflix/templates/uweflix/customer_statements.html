@@ -1,0 +1,65 @@
+{% extends "uweflix/layout.html" %}
+{% load static %}
+{% block title %}
+Customer Statements
+{% endblock %}
+
+{% block header %} 
+Customer Statements
+{%endblock %}
+
+{% block content %}
+
+        <div class="panel">
+            {% if transaction_list %}
+                <h3>Transaction Statement for Club Rep ({{club_rep_num}}):</h3>
+                <br/>
+                <table class="table table-striped" style="vertical-align:middle">
+                    <thead>
+                        <tr>
+                            <th>Transaction #</th>
+                            <th>Date</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Cost</th>
+                            <th>Paid</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for transaction in transaction_list %}
+                        <tr>
+                            <td>{{ transaction.id }}</td>
+                            <td>{{ transaction.date | date:'d M Y' }}</td>
+                            <td>{{ transaction.customer.user.first_name }}</td>
+                            <td>{{ transaction.customer.user.last_name }}</td>
+                            <td>£{{ transaction.cost | floatformat:2 }}</td>
+                            <td>{{ transaction.is_settled }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>Please select an account statement to view:</p>
+            {% endif %}
+            <hr/>
+            <form action="{% url 'customer_statements' %}" method="post">
+                {% csrf_token %}
+                <table class="form-area">
+                    <tr>
+                        <th>Select a Club Rep to view:</th>
+                        <td>{{ form.clubrep_choice }}</td>
+                    </tr>
+                    <tr>
+                        <th>Statement Type:</th>
+                        <td>{{ form.timerange_choice }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">
+                            <br/>
+                            <button type="submit" class="button">Search</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        {% endblock %}            
