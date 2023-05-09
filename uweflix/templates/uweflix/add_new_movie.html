@@ -1,0 +1,98 @@
+{% extends "uweflix/layout.html" %}
+{% block title %}
+Manage Movies
+{% endblock %}
+{% block header %}
+Manage Movies
+{% endblock %}
+{% block content %}
+
+  <div class="panel">
+    <h2>Add Movie</h2>
+    <div class="row">
+
+      <div class="box-element" id="form-wrapper">
+        <form id="form" method="POST" enctype="multipart/form-data"> {% csrf_token %} <div id="film-info">
+            <div class="form-field">
+              <input required class="form-control" type="text" name="title" placeholder="Title.." maxlength="100">
+            </div>
+            <div class="form-field">
+              <select required class="form-control" name="age_rating">
+                <option value="" disabled selected hidden>Age Rating..</option>
+                <option value="U">U</option>
+                <option value="PG">PG</option>
+                <option value="12">12</option>
+                <option value="12A">12A</option>
+                <option value="15">15</option>
+                <option value="18">18</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <input required class="form-control" type="number" name="duration" placeholder="Duration.." maxlength="3">
+            </div>
+            <div class="form-field">
+              <input required class="form-control" type="text" name="trailer_desc" placeholder="Trailer Description.."
+                maxlength="500">
+            </div>
+            <div class="form-field"> (Optional) Image: <input class="form-control" type="file" accept="image/*"
+                name="image">
+            </div>
+          </div>
+          <hr>
+          <input type="submit" value="Add Film" class="button">
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Delete Movie</h2>
+    <div class="box-element" id="form-wrapper">
+      <form id="form" method="POST"> {% csrf_token %} {{ form.as_p }}
+        <hr>
+        <input type="submit" name="delete_film" value="Delete Film" class="button">
+      </form>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Edit Movie Details</h2>
+    <div class="box-element" id="form-wrapper">
+      <form id="form" method="POST"> {% csrf_token %}        {{ form.as_p }}
+        <hr>
+        <div id="film-info">
+          <div class="form-field">
+            <input required class="form-control" type="text" name="edit_title" placeholder="Title.." maxlength="100">
+          </div>
+          <div class="form-field">
+            <select required class="form-control" name="edit_age_rating">
+              <option value="" disabled selected hidden>Age Rating..</option>
+              <option value="U">U</option>
+              <option value="PG">PG</option>
+              <option value="12">12</option>
+              <option value="12A">12A</option>
+              <option value="15">15</option>
+              <option value="18">18</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <input required class="form-control" type="number" name="edit_duration" placeholder="Duration.."
+              maxlength="3">
+          </div>
+          <div class="form-field">
+            <input required class="form-control" type="text" name="edit_trailer_desc"
+              placeholder="Trailer Description.." maxlength="500">
+          </div>
+          <div class="form-field"> (Optional) Image: <input class="form-control" type="file" accept="image/*"
+              name="edit_image">
+          </div>
+        </div>
+        <hr>
+        <input type="submit" name="edit_film" value="Edit Film" class="button">
+      </form>
+    </div>
+  </div>
+ 
+{% endblock %}
+
