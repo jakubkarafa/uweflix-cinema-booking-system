@@ -1,0 +1,65 @@
+{% extends "uweflix/layout.html" %}
+{% load static %}
+{% block title %}
+Request Cancellation
+{% endblock %}
+{% block header %} Manage Cancellations
+{%endblock %} 
+{% block content %}
+
+    <div class="panel">
+    {% if zipped %}
+        <h3>All Requests:</h3>
+        <br/>
+        <table class="transaction_list">
+            <thead>
+                <tr>
+                    <th>Transaction #</th>
+                    <th>Date Purchased</th>
+                    <th>Film Name</th>
+                    <th>Date of Showing</th>
+                    <th>Showing Time</th>
+                    <th>Tickets</th>
+                    <th>Cost</th>
+                    <th>Request Cancellation</th>                   
+                </tr>
+            </thead>
+            <tbody>
+            {% for ticket, adult, child, student in zipped %}
+                <tr>
+                    <td>{{ ticket.transaction.id }}</td>
+                    <td>{{ ticket.transaction.date | date:'d M Y' }}</td>
+                    <td>{{ ticket.showing.film.title }}</td>
+                    <td>{{ ticket.showing.time | date:'d M Y'}}</td>
+                    <td>{{ ticket.showing.time | date:'h:i'}}</td>
+                    <td>
+                        {% if adult > 0 %}
+                        {{ adult }}x Adult Tickets<br>
+                        {% endif %}
+                        {% if child > 0 %} 
+                        {{child}}x Child Tickets<br>
+                        {% endif %}
+                        {% if student > 0 %}
+                        {{student}}x Student Tickets
+                        {% endif %}
+                    </td>
+                    <td>£{{ ticket.transaction.cost | floatformat:2 }}</td>
+                    <td>
+                        <form action="{% url 'cancel_payment_aprovement_page' %}" method="post">
+                            {% csrf_token %}
+                            <button name="transaction_number" value={{ticket.transaction.id}} type="submit" class="button">Approve</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="panel" style="width:auto">
+        <p>No cancellations at the moment.</p>
+    </div>
+    {% endif %}
+    
+
+{% endblock %}
