@@ -1,0 +1,64 @@
+{% extends "uweflix/layout.html" %}
+{% load static %}
+{% block title %}
+Student Applications
+{% endblock %}
+{% block header %}
+Student Applications
+{% endblock %}
+{% block content %}
+
+<div class="panel">
+    {% if students %}
+        <form method="POST" name="changeStudent">
+            {% csrf_token %}
+            <select name="ReviewStudentForm" class="dropdown">
+                {% for student in students %}
+                    {% if student.id == urlID%}
+                        <option value="{{student.id}}" selected>{{student.username}}</option>
+                    {%else %}
+                        <option value="{{student.id}}">{{student.username}}</option>
+                    {%endif%}
+                {%endfor%}   
+                <input type="hidden" name="name" value="changeStudent">
+                <input type="submit" value="Search" name="changeStudent" class="button"/>
+            </select> 
+        </form>
+        <hr/>
+        <table class="student_list">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ chosenStudent.id }}</td>
+                    <td>{{ chosenStudent.username }}</td>
+                    <td>{{ chosenStudent.email }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="flex-container">
+            <div><form method="POST" name="acceptStudent">
+                {% csrf_token %}
+                    <input type="hidden" name="name" value="acceptStudent">
+                    <input type="submit" name="acceptStudent" value="Accept" class="button" />
+            </form></div>
+            <div><form method="POST" name="denyStudent">
+                {% csrf_token %}
+                    <input type="hidden" name="name" value="denyStudent">
+                    <input type="submit" value="Deny" name="denyStudents" class="button"/>     
+            </form></div> 
+          </div>
+        
+    {%else%}
+        <hr/>
+        <h3>No Student Applications!</h3>
+    {% endif %}
+</div>
+
+{% endblock %}
