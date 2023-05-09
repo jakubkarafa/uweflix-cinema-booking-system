@@ -1,0 +1,48 @@
+{% extends "uweflix/layout.html" %}
+{% load static %}
+{% block title %}
+Settle Payments
+{% endblock %}
+{% block content %}
+
+    <div class="panel" style="width: auto;">
+    <h1>Settle Payments</h1>
+    </div>
+
+
+    {% if transactions %}
+
+        <div class="panel" style="width: auto;">
+        <h3>Outstanding transactions for Club Rep #{{club_rep}} for the last month:</h3>
+        <br/>
+        <table class="transactions_list">
+            <thead>
+                <tr>
+                    <th>Transaction #</th>
+                    <th>Date</th>
+                    <th>Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for outstanding_transaction in transactions %}
+                <tr>
+                    <td>{{ outstanding_transaction.id }}</td>
+                    <td>{{ outstanding_transaction.date | date:'d M Y' }}</td>
+                    <td>£{{ outstanding_transaction.cost | floatformat:2 }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Settle", class="settleButton">
+        </form>
+        </div>
+    {%else%}
+        <div class="panel" style="width: auto;">
+        <h3>No Outstanding Transactions!</h3>
+        </div>
+    {% endif %}
+
+
+{% endblock %}
