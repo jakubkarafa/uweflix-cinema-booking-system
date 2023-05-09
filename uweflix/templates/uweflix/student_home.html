@@ -1,0 +1,42 @@
+{% extends "uweflix/viewings_page.html" %}
+{% load static %}
+{% block title %}
+Student Home Page
+{% endblock %}
+{% block header %}
+Welcome
+{% endblock %}
+{% block content %}
+
+    <div class="panel">
+
+      <h2>Book Film</h2></br>
+      <h3>Book a viewing!</h3></br>
+      <a href="{% url 'viewings_page' %}">
+        <input type="button" value="Book" class="button" />
+     </a>
+
+    </div>
+
+    <div class="panel">
+
+      <h2>Topup Credit</h2></br>
+      <h3>£{{ request.session.credit|floatformat:2 }} left!</h3></br>
+      <a href="{% url 'topup' %}">
+        <input type="button" value="Topup" class="button" />
+     </a>
+
+    </div>
+
+    <div class="panel">
+
+      <h2>Order History</h2></br>
+      <h3>View & cancel previous transactions.</h3></br>
+      <a href="{% url 'request_cancellation' %}">
+        <input type="button" value="View Transactions" class="button" />
+     </a>
+
+    </div>
+    
+
+{% endblock %}
