@@ -1,0 +1,79 @@
+{% extends "uweflix/layout.html" %}
+{% load static %}
+{% block title %}
+Cinema Manager Home Page
+{% endblock %}
+{% block header %}
+Management Panel
+{% endblock %}
+{% block content %}
+
+<div class="container">
+
+    <div class="panel">
+      <h2>Film Management</h2></br>
+      <h3>Add, Remove and Edit Films</h3></br>
+      <a href="{% url 'add_new_movie' %}">
+        <input type="button" value="Manage Films" class="button" />
+     </a>
+    </div>
+    
+    <div class="panel">
+        <h2>Cancellation Management</h2></br>
+        <h3>Approve or Deny Cancellation Requests</h3></br>
+        <a href="{% url 'cancel_payment_aprovement_page' %}">
+          <input type="button" value="View Cancellations" class="button" />
+       </a>
+    </div>
+    
+</div>
+
+<div class="container">
+
+    <div class="panel">
+      <h2>Screen Display Management</h2></br>
+      <h3>Assign a Film to a Screen</h3></br>
+      <a href="{% url 'add_new_showing_screen' %}">
+        <input type="button" value="Add Showing" class="button" />
+     </a>
+    </div>
+    
+    <div class="panel">
+        <h2>Screen Config Management</h2></br>
+        <h3>Add Screens and Configuration</h3></br>
+        <a href="{% url 'New_screen_addition_page' %}">
+          <input type="button" value="Add Screen" class="button" />
+       </a>
+    </div>
+    
+</div>
+
+<div class="container">
+
+    <div class="panel">
+      <h2>Club Management</h2></br>
+      <h3>Register a New Student Club</h3></br>
+      <a href="{%url 'new_club_add_page' %}">
+        <input type="button" value="Add Club" class="button" />
+     </a>
+    </div>
+    
+    <div class="panel">
+        <h2>Club Rep Management</h2></br>
+        <h3>Assign a New Reps for Clubs</h3></br>
+        <a href="{%url 'adding_new_representative_page' %}">
+          <input type="button" value="Add Club Rep" class="button" />
+       </a>
+    </div>
+
+    <div class="panel">
+      <h2>Student Account Management</h2></br>
+      <h3>Approve or Deny Student Accounts</h3></br>
+      <a href={% url 'review_students' 0%}>
+        <input type="button" value="Review" class="button" />
+     </a>
+    </div>
+    
+</div>
+
+{% endblock %}
