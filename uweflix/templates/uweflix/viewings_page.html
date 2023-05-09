@@ -1,0 +1,34 @@
+{% extends "uweflix/layout.html" %} {% load static %} {% block title %} UWEFlix
+- Current Movies {% endblock %} {% block header %} Welcome to UWEFlix Cinema!
+{%endblock %} {% block content %}
+
+<br />
+<section>
+  <h2>Current Movies</h2>
+  <div class="movie-grid animate__animated animate__fadeInleft">
+    {% for film in films %}
+
+    <div class="movie">
+      {% if film.image %}
+      <img class="movie img" src="{{ film.image.url }}" />
+      {% else %}
+      <img class="movie img" src="{% static 'images/movies/noimage.png' %}" />
+      {% endif %}
+
+      <div>
+        <h3>{{film.title}}</h3>
+        <p>Release Date: June 1, 2023</p>
+        <p>Runtime: 120 minutes</p>
+        <p>Rating: PG-13</p>
+        <br />
+      </div>
+      <a class="button button_grid" href="{% url 'showings_by_film' film.pk %}"
+        >Book Now</a
+      >
+    </div>
+
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock %}
