@@ -1,0 +1,162 @@
+{% extends "uweflix/layout.html" %}
+{% block title %}
+TopUp
+{% endblock %}
+{% block header %}
+TopUp Credit
+{% endblock %}
+{% block content %}
+
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+        background-color: #fff;
+        margin: 15% auto;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+        width: 30%;
+        text-align: center;
+    }
+
+    .modal-content button {
+        font-size: 14px;
+        font-weight: 600;
+        padding: 8px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .yes-button {
+        background-color: #4caf50;
+        color: #fff;
+        margin: 10px;
+    }
+
+    .yes-button:hover {
+        background-color: #45a049;
+    }
+
+    .no-button {
+        background-color: #f44336;
+        color: #fff;
+        margin: 10px;
+    }
+
+    .no-button:hover {
+        background-color: #da190b;
+    }
+
+</style>
+<div class="panel">
+    <h3>Select Amount</h3>
+    <div class="panel" style="width: auto;">
+        <div class="container">
+            <button onclick="change_topupAmount('5.00')" class="button">£5.00</button>
+            <button onclick="change_topupAmount('10.00')" class="button">£10.00</button>
+            <button onclick="change_topupAmount('20.00')" class="button">£20.00</button>
+            <button onclick="change_topupAmount('50.00')" class="button">£50.00</button>
+            <button onclick="change_topupAmount('100.00')" class="button">£100.00</button>
+            <button onclick="change_topupAmount('200.00')" class="button">£200.00</button>
+        </div>
+    </div>
+
+    <div class="panel" style="width: auto;">
+        <div class="container">
+        <input type = "number" min="0", name = "customTopUpAmount", class="button", placeholder="Custom", onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">
+        <button onclick="change_topupAmount('Custom')" class="button">Confirm</button>
+        </div>
+    </div>
+</div>
+
+
+<div class="panel" style="background-color: #d1ffbd">
+
+    <div class="container">
+        <h3>Credit to be added to your account:</h3>
+        <h1 id = "topupAmount">£0.00</h1>
+    </div>
+    
+    <div class="container">
+
+        <form method="POST" id="topup-form">
+            {% csrf_token %}
+            <input type="hidden" name="topUpValue" id="topUpValueForm"/>
+            <button type="button" class="button" onclick="showConfirmationModal()">Confirm</button>
+        </form>
+        
+        <div id="confirmation-modal" class="modal">
+            <div class="modal-content">
+                <h4>Your accout will be topped up by:</h4>
+                <h3 id="display-topupAmount"></h3>
+                <h4>Do you wish to proceed?</h4>
+                <button class="yes-button" onclick="submitForm()">Yes</button>
+                <button class="no-button" onclick="closeConfirmationModal()">No</button>
+            </div>
+        </div>
+
+        <div id="error-message" class="alert alert-danger" style="display: none;" role="alert">
+            Please select a valid top-up amount.
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function change_topupAmount(price) {
+        if (price == "Custom") { 
+            var custom = parseFloat(document.getElementsByName("customTopUpAmount")[0].value, 10);
+            if (isNaN(custom) != true) {
+                document.getElementById("topupAmount").innerHTML = "£" + custom.toFixed(2);
+                document.getElementById("topUpValueForm").value = custom.toFixed(2);
+                document.getElementById("display-topupAmount").innerHTML = "£" + custom.toFixed(2);
+
+            }
+        } else {
+            document.getElementById("topupAmount").innerHTML = "£" + price;
+            document.getElementById("topUpValueForm").value = price;
+            document.getElementById("display-topupAmount").innerHTML = "£" + price;
+        }
+    }
+</script>
+
+
+<script>
+    const modal = document.getElementById("confirmation-modal");
+
+    function showConfirmationModal() {
+        const topupAmount = parseFloat(document.getElementById("topUpValueForm").value);
+        const errorMessage = document.getElementById("error-message");
+
+        if (topupAmount > 0) {
+            modal.style.display = "block";
+            errorMessage.style.display = "none";
+        } else {
+            errorMessage.style.display = "block";
+        }
+    }
+
+    function closeConfirmationModal() {
+        modal.style.display = "none";
+    }
+
+    function submitForm() {
+        closeConfirmationModal();
+        document.getElementById("topup-form").submit();
+    }
+    
+</script>
+
+{% endblock %}
